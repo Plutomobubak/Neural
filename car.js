@@ -14,17 +14,23 @@ class Car{
         this.damaged=false
 
         this.controls=new Controls()
-        this.sensor=new Sensor()
+        this.sensor=new Sensor(this)
     }
     update(roadBorders){
         this.#move()
         this.polygon=this.#createPolygon()
-        this.damaged=this.#assesDamage()
+        this.damaged=this.#assessDamage()
         this.sensor.update(roadBorders)
     }
+    draw(ctx){
+
+    }
     #move(){
-        this.speed+=this.controls.rl*this.acceleration
+        this.speed+=this.controls.fr*this.acceleration
         this.speed=Math.min(this.speed,this.maxSpeed)
+        this.angle-=this.controls.lr*0.03
+        this.x-=Math.sin(-this.angle)*this.speed
+        this.y-=Math.cos(-this.angle)*this.speed
     }
     #createPolygon(){
         const points=[]
@@ -46,5 +52,14 @@ class Car{
             x:this.x-Math.sin(Math.PI+this.angle+alpha)*rad,
             y:this.y-Math.cos(Math.PI+this.angle+alpha)*rad
         })
+        return points
+    }
+    #assessDamage(roadBorders){
+        for (let i = 0; i < roadBorders.lenght; i++) {
+            if(polysIntersect(this.polygon,roadBorders[i])){
+                return true
+            }
+        }
+        return false
     }
 }
