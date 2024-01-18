@@ -24,12 +24,12 @@ class Sensor{
         for (let i = 0; i < this.rayCount; i++) {
             const rayAngle=lerp(this.raySpread/2,-this.raySpread/2,i/(this.rayCount-1))
             const start={
-                x:0,
-                y:0
+                x:this.car.x,
+                y:this.car.y
             }
             const end={
-                x:-Math.sin(rayAngle)*this.rayLenght,
-                y:-Math.cos(rayAngle)*this.rayLenght
+                x:(Math.sin(rayAngle)*this.rayLenght)*Math.cos(-this.car.angle)+(Math.cos(rayAngle)*this.rayLenght)*Math.sin(-this.car.angle)+this.car.x,
+                y:-(Math.cos(rayAngle)*this.rayLenght)*Math.cos(-this.car.angle)+(Math.sin(rayAngle)*this.rayLenght)*Math.sin(-this.car.angle)+this.car.y
             }
             this.rays.push([start,end])
         }
@@ -38,14 +38,7 @@ class Sensor{
         let touches=[]
         for (let i = 0; i < roadBorders.length; i++) {
             const rayAngle=lerp(this.raySpread/2,-this.raySpread/2,i/(this.rayCount-1))
-            const touch = getIntersection(
-                {
-                    x:ray[0].x+this.car.x,
-                    y:ray[0].y+this.car.y
-                },{
-                    x:(ray[1].x)*Math.cos(-this.car.angle)+(ray[1].y)*Math.sin(-this.car.angle)+this.car.x,
-                    y:-(ray[1].y)*Math.cos(-this.car.angle)+(ray[1].x)*Math.sin(-this.car.angle)+this.car.y
-                },roadBorders[i][0],roadBorders[i][1])
+            const touch = getIntersection(ray[0],ray[1],roadBorders[i][0],roadBorders[i][1])
             if(touch)touches.push(touch)
         }
         if(touches.length==0){
@@ -61,10 +54,7 @@ class Sensor{
         for (let i = 0; i < this.rayCount; i++){
             let end=this.rays[i][1]
             if(this.readings[i]){
-                end={
-                    x:(this.readings[i].x-this.car.x)*Math.cos(-this.car.angle)+(this.readings[i].y-this.car.y)*Math.sin(-this.car.angle),
-                    y:(this.readings[i].x-this.car.x)*Math.sin(-this.car.angle)-(this.readings[i].y-this.car.y)*Math.cos(-this.car.angle)
-                }
+                end=this.readings[i]
                 console.table(this.readings)
             }
             
