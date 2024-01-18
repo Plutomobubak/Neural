@@ -23,14 +23,24 @@ class Car{
         this.sensor.update(roadBorders)
     }
     draw(ctx){
-
+        ctx.save()
+        ctx.beginPath()
+        ctx.moveTo(this.polygon[0].x,this.polygon[0].y)
+        for(let i =0;i<this.polygon.length;i++){
+            ctx.lineTo(this.polygon[i].x,this.polygon[i].y)
+        }
+        ctx.fill()
+        this.sensor.draw(ctx)
+        ctx.restore()
     }
     #move(){
         this.speed+=this.controls.fr*this.acceleration
-        this.speed=Math.min(this.speed,this.maxSpeed)
-        this.angle-=this.controls.lr*0.03
-        this.x-=Math.sin(-this.angle)*this.speed
-        this.y-=Math.cos(-this.angle)*this.speed
+        this.speed=Math.min(Math.abs(this.speed),this.maxSpeed)*Math.sign(this.speed)
+        this.speed-=this.friction*Math.sign(this.speed)
+        if(Math.abs(this.speed)<=this.friction)this.speed=0
+        this.angle-=this.controls.lr*0.03*Math.sign(this.speed)
+        this.x-=Math.sin(this.angle)*this.speed
+        this.y-=Math.cos(this.angle)*this.speed
     }
     #createPolygon(){
         const points=[]
