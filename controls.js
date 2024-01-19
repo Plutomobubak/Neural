@@ -1,9 +1,13 @@
 class Controls{
-    constructor(){
+    constructor(isPlayer){
         this.fr=0
         this.lr=0
-
-        this.#addKeyboardListeners()
+        if(isPlayer){
+            this.#addKeyboardListeners()
+        }
+        else{
+            this.fr=1
+        }
     }
     #addKeyboardListeners(){
         document.onkeydown=(event)=>{

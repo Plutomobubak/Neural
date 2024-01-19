@@ -9,12 +9,12 @@ class Sensor{
         this.readings=[]
     }
 
-    update(roadBorders){
+    update(roadBorders,traffic){
         this.#castRays()
         this.readings=[]
         for (let i = 0; i < this.rays.length; i++) {
             this.readings.push(
-                this.#getReading(this.rays[i],roadBorders)
+                this.#getReading(this.rays[i],roadBorders,traffic)
             )
         }
     }
@@ -34,12 +34,19 @@ class Sensor{
             this.rays.push([start,end])
         }
     }
-    #getReading(ray,roadBorders){
+    #getReading(ray,roadBorders,traffic){
         let touches=[]
         for (let i = 0; i < roadBorders.length; i++) {
-            const rayAngle=lerp(this.raySpread/2,-this.raySpread/2,i/(this.rayCount-1))
-            const touch = getIntersection(ray[0],ray[1],roadBorders[i][0],roadBorders[i][1])
-            if(touch)touches.push(touch)
+            var touch = getIntersection(ray[0],ray[1],roadBorders[i][0],roadBorders[i][1])
+            if(touch)
+                touches.push(touch)
+        }
+
+        for(let i=0;i<traffic.length;i++){
+            const poly=traffic[i].polygon
+            for(let j=0;j<poly.length;j++){
+                //finish
+            }
         }
         if(touches.length==0){
             return null
@@ -55,7 +62,6 @@ class Sensor{
             let end=this.rays[i][1]
             if(this.readings[i]){
                 end=this.readings[i]
-                console.table(this.readings)
             }
             
             ctx.beginPath()
