@@ -1,12 +1,12 @@
 class Car{
-    constructor(x,y,width,height,isPlayer){
+    constructor(x,y,width,height,acc,isPlayer){
         this.x=x
         this.y=y
         this.width=width
         this.height=height
 
         this.speed=0
-        this.acceleration=0.2
+        this.acceleration=acc
         this.friction=0.05
         this.maxSpeed=2.5*(isPlayer+1)
 
