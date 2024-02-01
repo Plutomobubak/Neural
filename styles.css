@@ -31,10 +31,7 @@ header{
     margin-right:-100px;
     overflow: hidden;
     height: 80px;
-    
-}
-#score{
-    
+    list-style-type: none;
 }
 #score2{
     margin-top: 50px;

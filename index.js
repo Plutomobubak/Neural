@@ -28,7 +28,7 @@ function animate(){
     c+=t
     if(c>5000){
         let lane=Math.round(Math.random()*5)
-        traffic.push(new Car(road.getLaneCenter(lane),car.y-1000,20,35,0.2*Math.sign(lane-2.1),false))
+        traffic.push(new Car(road.getLaneCenter(lane),car.y+(1000*Math.sign(lane-2.1)),20,35,0.2*Math.sign(lane-2.1),false))
         c=0
     }
     for(let i =0;i<traffic.length;i++){
