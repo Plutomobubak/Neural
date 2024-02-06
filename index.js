@@ -5,10 +5,10 @@ canvas.width = 444
 
 const ctx = canvas.getContext("2d")
 const road = new Road(canvas.width/2,canvas.width*0.9,6)
-const car = new Car(road.getLaneCenter(3),100,20,35,0.2,true)
+const car = new Car(road.getLaneCenter(3),100,20,35,0.2,1)
 
 const traffic=[
-    new Car(road.getLaneCenter(3),-100,20,35,false)
+    
 ]
 var t = document.timeline.currentTime
 var c= 0;
@@ -28,7 +28,7 @@ function animate(){
     c+=t
     if(c>5000){
         let lane=Math.round(Math.random()*5)
-        traffic.push(new Car(road.getLaneCenter(lane),car.y+(1000*Math.sign(lane-2.1)),20,35,0.2*Math.sign(lane-2.1),false))
+        traffic.push(new Car(road.getLaneCenter(lane),car.y+(1000*Math.sign(lane-2.1)),20,35,0.2*Math.sign(lane-2.1),0))
         c=0
     }
     for(let i =0;i<traffic.length;i++){
@@ -37,7 +37,6 @@ function animate(){
     }
     //car
     diff=(Math.round(car.y/100-1)*-1)-lastScore
-    console.log(lastScore + ", " + diff)
     if(diff>=1){
         score.classList.add("roll")
         score2.classList.add("roll2")

@@ -1,12 +1,17 @@
 class Controls{
-    constructor(isPlayer){
+    constructor(controlType){
         this.fr=0
         this.lr=0
-        if(isPlayer){
-            this.#addKeyboardListeners()
-        }
-        else{
-            this.fr=1
+        switch(controlType){
+            case 2:
+                
+                break;
+            case 1:
+                this.#addKeyboardListeners()
+                break;
+            case 0:
+                this.fr=1
+                break;
         }
     }
     #addKeyboardListeners(){
