@@ -5,7 +5,7 @@ canvas.width = 444
 
 const ctx = canvas.getContext("2d")
 const road = new Road(canvas.width/2,canvas.width*0.9,6)
-const car = new Car(road.getLaneCenter(3),100,20,35,0.2,1)
+const car = new Car(road.getLaneCenter(3),100,20,35,0.2,2)
 
 const traffic=[
     

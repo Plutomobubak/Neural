@@ -17,9 +17,10 @@ class Car{
         this.controls=new Controls(controlType)
         if(controlType){
             this.sensor=new Sensor(this)
-            this.fluff=new Network(
-                [this.sensor.rayCount,6,6,2]
-            )
+            if(controlType>1)
+                this.fluff=new Network(
+                    [this.sensor.rayCount,6,6,2]
+                )
         }
     }
     update(roadBorders,traffic){
@@ -30,11 +31,13 @@ class Car{
         }
         if(this.sensor){
             this.sensor.update(roadBorders,traffic)
-            const offsets=this.sensor.readings.map(s=>s==null?0:s.offset*2-1)
-            const outs=Network.feedForward(offsets,this.fluff)
+            if(this.fluff){
+                const offsets=this.sensor.readings.map(s=>s==null?0:s.offset*2-1)
+                const outs=Network.feedForward(offsets,this.fluff)
 
-            this.controls.fr=outs[0]
-            this.controls.lr=outs[1]
+                this.controls.fr=outs[0]
+                this.controls.lr=outs[1]
+            }
         }
     }
     draw(ctx){
