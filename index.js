@@ -55,6 +55,7 @@ function animate(){
     car.draw(ctx)
     ctx.restore()
     t=document.timeline.currentTime
+
     requestAnimationFrame(animate)
 }
 //meow

@@ -13,10 +13,12 @@ body{
     top:0;
     left:50%;
     transform: translate(-50%, 0);
+    z-index: -1;
 }
+
 header{
-    text-align: right;
-    margin-right:110px;
+    text-align: left;
+    margin-left:10px;
     font-family: "Nabla", system-ui;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -28,7 +30,7 @@ header{
 }
 .scores{
     margin-top:-80px;
-    margin-right:-100px;
+    margin-left:150px;
     overflow: hidden;
     height: 80px;
     list-style-type: none;
