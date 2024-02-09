@@ -12,6 +12,7 @@ const traffic=[
     
 ]
 var t = document.timeline.currentTime
+var timer = 0
 var c= 0;
 var diff=0
 var lastScore = 0
@@ -24,17 +25,27 @@ score2.addEventListener("animationend",()=>{
 })
 
 if(localStorage.getItem("fluffiestFluff")){
-    bestCar.fluff=JSON.parse(localStorage.getItem("fluffiestFluff"))
+    for(let i=0;i<cars.length;i++){
+        cars[i].fluff=JSON.parse(localStorage.getItem("fluffiestFluff"))
+        if(i!=0)Network.mutate(cars[i].fluff)
+    }
 }
 
 
 animate()
 
 function animate(){
+    t=document.timeline.currentTime-t
     for(let i=0;i<cars.length;i++){
         cars[i].update(road.borders,traffic)
     }
     bestCar=cars.find(c=>c.y==Math.min(...cars.map(c=>c.y)))
+    if(bestCar.damaged){timer+=t}
+    else{timer=0}
+    if(timer>10000){
+        save()
+        location.reload()
+    }
     updateTraffic(bestCar)
     updateScore(bestCar)
     canvas.height = window.innerHeight
@@ -53,7 +64,6 @@ function animate(){
     bestCar.draw(ctx,"red")
     ctx.restore()
     t=document.timeline.currentTime
-
     requestAnimationFrame(animate)
 }
 
@@ -67,7 +77,6 @@ function generateCars(N){
 
 function updateTraffic(car){
     //traffic
-    t=document.timeline.currentTime-t
     c+=t
     if(c>5000){
         let lane=Math.round(Math.random()*5)
@@ -78,6 +87,7 @@ function updateTraffic(car){
         traffic[i].update(road.borders,[])
         if(Math.abs(traffic[i].y-car.y)>1000)traffic[i].y=car.y-1000
     }
+
 }
 function updateScore(car){
     //score

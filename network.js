@@ -13,6 +13,19 @@ class Network{
         }
         return outs
     }
+
+    static mutate(net){
+        net.levels.forEach(level=>{
+            for(let i = 0;i<level.biases.length;i++){
+                level.biases[i]=lerp(level.biases[i],Math.random()*2-1,Math.random())
+            }
+            for(let j = 0;j<level.weights.length;j++){
+                for(let i = 0;i<level.weights[j].length;i++){
+                    level.weights[j][i]=lerp(level.weights[j][i],Math.random()*2-1,Math.random())
+                }
+            }
+        })
+    }
 }
 
 class Level{
