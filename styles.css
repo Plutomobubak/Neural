@@ -16,6 +16,37 @@ body{
     z-index: -1;
 }
 
+button{
+    color:#222;
+    padding: 8px 16px;
+    background-color: lightskyblue;
+    border: 2px solid #222;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align :right;
+    margin-right: 20px;
+    font-size: medium;
+    vertical-align: top;
+}
+button:hover{
+    color: black;
+    padding: 8px 16px;
+    background-color: rgb(51, 51, 255);
+    border: 2px solid black;
+}
+button:active{
+    color: #222;
+    padding: 8px 16px;
+    border: 2px solid #222;
+}
+
+/*
+    Score flipping animation
+    im not proud of this
+    please dont look at it
+    i beg you
+    fine, you can look, im not proud of anything ive done anyway
+*/
 header{
     text-align: left;
     margin-left:10px;

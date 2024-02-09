@@ -40,8 +40,9 @@ class Car{
             }
         }
     }
-    draw(ctx){
+    draw(ctx,color="black"){
         if(this.damaged)ctx.fillStyle="gray"
+        else ctx.fillStyle=color
         ctx.save()
         ctx.beginPath()
         ctx.moveTo(this.polygon[0].x,this.polygon[0].y)
