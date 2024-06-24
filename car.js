@@ -8,7 +8,7 @@ class Car{
         this.speed=0
         this.acceleration=acc
         this.friction=0.05
-        this.maxSpeed=2.5*(controlType?2:1)
+        this.maxSpeed=controlType?5:Math.random()*5+1
 
         this.angle=0
         this.damaged=false

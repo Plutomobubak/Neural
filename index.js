@@ -5,9 +5,8 @@ canvas.width = 444
 
 const ctx = canvas.getContext("2d")
 const road = new Road(canvas.width/2,canvas.width*0.9,6)
-const cars = generateCars(500)
+const cars = generateCars(400)
 var bestCar=cars[0];
-
 const traffic=[
     
 ]
@@ -24,7 +23,7 @@ score2.addEventListener("animationend",()=>{
     score2.classList.remove("roll2")
 })
 
-if(localStorage.getItem("fluffiestFluff")){
+if(localStorage.getItem("fluffiestFluff") && localStorage.getItem("fluffiestFluff")!="null"){
     for(let i=0;i<cars.length;i++){
         cars[i].fluff=JSON.parse(localStorage.getItem("fluffiestFluff"))
         if(i!=0)Network.mutate(cars[i].fluff)
@@ -80,7 +79,7 @@ function updateTraffic(car){
     c+=t
     if(c>5000){
         let lane=Math.round(Math.random()*5)
-        traffic.push(new Car(road.getLaneCenter(lane),car.y+(1000*Math.sign(lane-2.1)),20,35,0.2*Math.sign(lane-2.1),0))
+        traffic.push(new Car(road.getLaneCenter(lane),car.y+(1000*Math.sign(lane-2.1-((lane>2)*(Math.random()-0.5)*10))),20,35,0.2*Math.sign(lane-2.1),0))
         c=0
     }
     for(let i =0;i<traffic.length;i++){

@@ -21,7 +21,7 @@ class Network{
             }
             for(let j = 0;j<level.weights.length;j++){
                 for(let i = 0;i<level.weights[j].length;i++){
-                    level.weights[j][i]=lerp(level.weights[j][i],Math.random()*2-1,Math.random())
+                    level.weights[j][i]=lerp(level.weights[j][i],Math.random()*2-1,Math.random()/3)
                 }
             }
         })
